@@ -15,7 +15,7 @@ import { GraduationCap, PhoneCall, Smartphone } from 'lucide-react';
 export const App: React.FC = () => {
   const [profile, setProfile] = useState<TeacherProfile>(() => {
     try {
-      const saved = localStorage.getItem('lyhoang_teacher_profile_v2');
+      const saved = localStorage.getItem('lyhoangem_teacher_profile_v3');
       if (saved) return JSON.parse(saved);
     } catch {
       // ignore
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
   const handleSaveProfile = (updated: TeacherProfile) => {
     setProfile(updated);
     try {
-      localStorage.setItem('lyhoang_teacher_profile_v2', JSON.stringify(updated));
+      localStorage.setItem('lyhoangem_teacher_profile_v3', JSON.stringify(updated));
     } catch {
       // ignore
     }
@@ -51,7 +51,7 @@ export const App: React.FC = () => {
   const handleResetProfile = () => {
     setProfile(DEFAULT_TEACHER_PROFILE);
     try {
-      localStorage.removeItem('lyhoang_teacher_profile_v2');
+      localStorage.removeItem('lyhoangem_teacher_profile_v3');
     } catch {
       // ignore
     }

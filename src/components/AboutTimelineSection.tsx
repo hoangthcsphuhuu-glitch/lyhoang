@@ -59,10 +59,10 @@ export const AboutTimelineSection: React.FC<AboutTimelineSectionProps> = ({ prof
               <GraduationCap className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-              Chuyên Môn Sư Phạm Vững Vàng
+              {profile.experienceYears} Năm Gắn Bó Tại {profile.workplace}
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              {profile.degree}. Nghiên cứu chuyên sâu về phương pháp phát triển năng lực tư duy logic, giải quyết bài toán thực tiễn theo Chương trình GDPT 2018.
+              Trực tiếp đứng lớp giảng dạy, thấu hiểu sâu sắc tâm lý và năng lực học sinh cấp THCS qua 17 khóa học. Luôn tận tâm kèm cặp từ học sinh mất gốc đến bồi dưỡng học sinh giỏi.
             </p>
           </div>
 
@@ -71,10 +71,10 @@ export const AboutTimelineSection: React.FC<AboutTimelineSectionProps> = ({ prof
               <Target className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-              Thực Chiến Tuyển Sinh 10 & THPT QG
+              Thế Mạnh Mũi Nhọn: Toán THCS (Khối 6, 7, 8, 9)
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Biên soạn hệ thống chuyên đề chuẩn cấu trúc mới: Tự luận trình bày điểm 10 cho lớp 9 và bộ 3 dạng thức Trắc nghiệm mới (4 lựa chọn, Đúng/Sai, Trả lời ngắn) cho lớp 12.
+              Chuyên sâu hệ thống kiến thức Toán 6, 7, 8, 9 theo chương trình GDPT 2018 mới: Số học, Đại số (Hằng đẳng thức, Phân thức, Căn thức, Vi-ét), Hình học phẳng và Ôn thi vào lớp 10.
             </p>
           </div>
 
@@ -83,10 +83,10 @@ export const AboutTimelineSection: React.FC<AboutTimelineSectionProps> = ({ prof
               <Lightbulb className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-              Ứng Dụng Công Nghệ & Theo Sát Cá Nhân
+              Dạy Song Hành Toán & Tin Học (6, 7, 8, 9)
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Kết hợp giảng dạy trực tiếp với hệ thống Web App & APK luyện đề thông minh, thống kê lỗi sai từng học sinh và cập nhật tình hình học tập định kỳ cho Phụ huynh.
+              Giảng dạy đồng thời môn Tin học khối 6, 7, 8, 9 (Kỹ năng số, Bảng tính Excel, Lập trình thuật toán Scratch/Python) và ứng dụng CNTT, phần mềm AI giúp bài giảng Toán trở nên trực quan, sinh động.
             </p>
           </div>
         </div>

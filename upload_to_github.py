@@ -21,7 +21,8 @@ if hasattr(sys.stdout, "reconfigure"):
 WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
 DIST_DIR = os.path.join(WORKSPACE_DIR, "dist")
 REPO_NAME = "lyhoang"
-REPO_DESC = "Thương hiệu cá nhân Thầy Lý Hoàng - Giáo viên Toán THCS & THPT (Web App Giáo Dục & Android APK)"
+REPO_DESC = "Thương hiệu cá nhân Thầy Lý Hoàng Em (Trường THCS-THPT Vĩnh Lộc) - 17 năm kinh nghiệm dạy Toán & Tin học 6,7,8,9 (Thế mạnh Toán THCS)"
+TOKEN_CACHE_FILE = os.path.join(WORKSPACE_DIR, ".gh_token_cache")
 
 # Official GitHub CLI OAuth Client ID for Device Flow
 GITHUB_CLIENT_ID = "178c6fc778ccc68e1d6a"
@@ -121,7 +122,7 @@ def collect_source_files():
     for root, dirs, files in os.walk(WORKSPACE_DIR):
         dirs[:] = [d for d in dirs if d not in ignore_dirs]
         for fname in files:
-            if fname.endswith(".idsig"):
+            if fname.endswith(".idsig") or fname == ".gh_token_cache":
                 continue
             full_path = os.path.join(root, fname)
             rel_path = os.path.relpath(full_path, WORKSPACE_DIR).replace("\\", "/")
@@ -325,8 +326,22 @@ def main():
     token = os.environ.get("GITHUB_TOKEN", "").strip()
     if len(sys.argv) > 1 and sys.argv[1].strip():
         token = sys.argv[1].strip()
+    if not token and os.path.exists(TOKEN_CACHE_FILE):
+        try:
+            with open(TOKEN_CACHE_FILE, "r", encoding="utf-8") as f:
+                cached = f.read().strip()
+            st, _ = github_api("GET", "/user", cached)
+            if st == 200:
+                token = cached
+        except Exception:
+            pass
     if not token:
         token = get_token_via_device_flow()
+        try:
+            with open(TOKEN_CACHE_FILE, "w", encoding="utf-8") as f:
+                f.write(token)
+        except Exception:
+            pass
     upload_repository(token)
 
 

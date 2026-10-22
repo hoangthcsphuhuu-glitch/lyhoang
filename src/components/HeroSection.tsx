@@ -34,7 +34,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile, onNavigate })
           <div className="lg:col-span-7 space-y-5">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/90 dark:bg-blue-950/90 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 text-xs font-bold">
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>Thương Hiệu Giáo Dục Toán Học Uy Tín • THCS & THPT</span>
+              <span>Thế Mạnh Toán THCS (6•7•8•9) & Tin Học THCS • {profile.workplace}</span>
             </div>
 
             <div className="space-y-2">
@@ -136,7 +136,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile, onNavigate })
                   <div className="min-w-0">
                     <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-bold mb-1">
                       <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                      <span>Giáo Viên Chuyên Toán</span>
+                      <span>Thế Mạnh Toán THCS & Tin Học 6–9</span>
                     </div>
                     <h2 className="text-xl font-extrabold text-white truncate">{profile.fullName}</h2>
                     <p className="text-xs text-blue-200 line-clamp-2 mt-0.5">{profile.workplace}</p>
@@ -146,10 +146,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile, onNavigate })
                 {/* Interactive Formula Motto Box */}
                 <div className="mt-5 p-3.5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15">
                   <div className="text-[11px] uppercase tracking-wider text-blue-200 font-semibold mb-1">
-                    Công thức Thành công Độc quyền
+                    Công thức Thành công Toán – Tin THCS
                   </div>
                   <div className="text-sm sm:text-base font-bold text-amber-300">
-                    <MathTex tex="\text{Điểm } 9+ = \text{Bản chất} \times \text{Phản xạ} + \text{Kỷ luật}" />
+                    <MathTex tex="\text{Điểm } 9+ = \text{Vững gốc Toán} \times \text{Tư duy Thuật toán}" />
                   </div>
                 </div>
 
@@ -161,9 +161,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile, onNavigate })
                       <span>Kinh nghiệm</span>
                     </div>
                     <div className="text-2xl font-extrabold text-white mt-1">
-                      {profile.experienceYears}+ Năm
+                      {profile.experienceYears} Năm
                     </div>
-                    <div className="text-[11px] text-slate-300">Chuyên luyện thi 10 & ĐH</div>
+                    <div className="text-[11px] text-slate-300">Dạy Toán & Tin học 6,7,8,9</div>
                   </div>
 
                   <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-white/10">
@@ -174,29 +174,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile, onNavigate })
                     <div className="text-2xl font-extrabold text-white mt-1">
                       {profile.totalStudents}
                     </div>
-                    <div className="text-[11px] text-slate-300">Đã đồng hành & bứt phá</div>
+                    <div className="text-[11px] text-slate-300">THCS-THPT Vĩnh Lộc</div>
                   </div>
 
                   <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-white/10">
                     <div className="flex items-center gap-2 text-blue-300 text-xs font-medium">
                       <TrendingUp className="w-4 h-4 text-sky-400" />
-                      <span>Đỗ NV1 vào 10</span>
+                      <span>Toán 9 vào 10</span>
                     </div>
                     <div className="text-2xl font-extrabold text-amber-400 mt-1">
                       {profile.passRateGrade10}
                     </div>
-                    <div className="text-[11px] text-slate-300">THPT Công lập & Chuyên</div>
+                    <div className="text-[11px] text-slate-300">Thế mạnh mũi nhọn THCS</div>
                   </div>
 
                   <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-white/10">
                     <div className="flex items-center gap-2 text-blue-300 text-xs font-medium">
                       <Sparkles className="w-4 h-4 text-purple-400" />
-                      <span>Điểm 9.0+ THPT</span>
+                      <span>Học sinh Giỏi</span>
                     </div>
                     <div className="text-2xl font-extrabold text-emerald-400 mt-1">
                       {profile.highScoreCountTHPT}
                     </div>
-                    <div className="text-[11px] text-slate-300">Học sinh đạt 9.0 – 10</div>
+                    <div className="text-[11px] text-slate-300">Đạt 8.5 – 10 Toán & Tin</div>
                   </div>
                 </div>
 

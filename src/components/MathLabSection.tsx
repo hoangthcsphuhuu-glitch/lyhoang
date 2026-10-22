@@ -20,7 +20,7 @@ export const MathLabSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'quiz' | 'formulas' | 'graph'>('quiz');
 
   // --- QUIZ STATE ---
-  const [quizCategory, setQuizCategory] = useState<'TOAN_9_VAO_10' | 'TOAN_12_THPT_QG'>('TOAN_9_VAO_10');
+  const [quizCategory, setQuizCategory] = useState<'TOAN_8_9' | 'TOAN_6_7' | 'TIN_HOC_6_9'>('TOAN_8_9');
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, number>>({});
   const [submittedQuiz, setSubmittedQuiz] = useState<boolean>(false);
 
@@ -42,7 +42,7 @@ export const MathLabSection: React.FC = () => {
     setSelectedAnswers((prev) => ({ ...prev, [qId]: optIdx }));
   };
 
-  const handleResetQuiz = (newCat?: 'TOAN_9_VAO_10' | 'TOAN_12_THPT_QG') => {
+  const handleResetQuiz = (newCat?: 'TOAN_8_9' | 'TOAN_6_7' | 'TIN_HOC_6_9') => {
     if (newCat) setQuizCategory(newCat);
     setSelectedAnswers({});
     setSubmittedQuiz(false);
@@ -200,24 +200,34 @@ export const MathLabSection: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100 dark:border-slate-800">
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => handleResetQuiz('TOAN_9_VAO_10')}
+                  onClick={() => handleResetQuiz('TOAN_8_9')}
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
-                    quizCategory === 'TOAN_9_VAO_10'
+                    quizCategory === 'TOAN_8_9'
                       ? 'bg-indigo-600 text-white shadow-sm'
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
                   }`}
                 >
-                  Đề Mini Toán 9 – Ôn Thi Vào 10
+                  Đề Toán 8 & 9 – Trọng Tâm THCS & Ôn Vào 10
                 </button>
                 <button
-                  onClick={() => handleResetQuiz('TOAN_12_THPT_QG')}
+                  onClick={() => handleResetQuiz('TOAN_6_7')}
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
-                    quizCategory === 'TOAN_12_THPT_QG'
+                    quizCategory === 'TOAN_6_7'
                       ? 'bg-indigo-600 text-white shadow-sm'
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
                   }`}
                 >
-                  Đề Mini Toán 12 – Ôn THPT Quốc Gia
+                  Đề Toán 6 & 7 – Số Học, Đại Số & Hình Học
+                </button>
+                <button
+                  onClick={() => handleResetQuiz('TIN_HOC_6_9')}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                    quizCategory === 'TIN_HOC_6_9'
+                      ? 'bg-indigo-600 text-white shadow-sm'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                  }`}
+                >
+                  Đề Tin Học 6•7•8•9 – Bảng Tính & Thuật Toán
                 </button>
               </div>
 
@@ -395,11 +405,10 @@ export const MathLabSection: React.FC = () => {
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
                 {[
                   { id: 'ALL', label: 'Tất cả' },
-                  { id: 'DAI_SO_9', label: 'Đại số 9' },
-                  { id: 'HINH_HOC_9', label: 'Hình học 9' },
-                  { id: 'GIAI_TICH_12', label: 'Giải tích 12' },
-                  { id: 'HINH_KHONG_GIAN', label: 'Hình Oxyz' },
-                  { id: 'XAC_SUAT', label: 'Xác suất mới' },
+                  { id: 'DAI_SO_8_9', label: 'Đại số 8 & 9' },
+                  { id: 'HINH_HOC_8_9', label: 'Hình học 8 & 9' },
+                  { id: 'TOAN_6_7', label: 'Toán 6 & 7' },
+                  { id: 'TIN_HOC_THUAT_TOAN', label: 'Tin học 6–9' },
                   { id: 'BOOKMARKED', label: `Đã lưu (${bookmarkedIds.length})` }
                 ].map((cat) => (
                   <button

@@ -1,7 +1,7 @@
 {
-  "name": "Toán Thầy Lý Hoàng - Luyện Thi 10 & THPT Quốc Gia",
-  "short_name": "Toán Thầy Lý Hoàng",
-  "description": "Ứng dụng học Toán THCS & THPT, Kho tài liệu, Thi thử trắc nghiệm và Hồ sơ Giáo viên Lý Hoàng",
+  "name": "Thầy Lý Hoàng Em - Toán & Tin Học THCS (Trường THCS-THPT Vĩnh Lộc)",
+  "short_name": "Thầy Lý Hoàng Em",
+  "description": "Ứng dụng học Toán & Tin học THCS (Khối 6, 7, 8, 9) - Thầy Lý Hoàng Em, Trường THCS-THPT Vĩnh Lộc (17 năm kinh nghiệm)",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f172a",

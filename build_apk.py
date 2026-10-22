@@ -78,7 +78,7 @@ def prepare_project():
     with open(os.path.join(RES_DIR, "values", "strings.xml"), "w", encoding="utf-8") as f:
         f.write('''<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Toán Thầy Lý Hoàng</string>
+    <string name="app_name">Thầy Lý Hoàng Em (Toán - Tin)</string>
 </resources>
 ''')
 

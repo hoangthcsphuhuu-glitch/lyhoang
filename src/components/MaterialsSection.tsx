@@ -18,7 +18,7 @@ export const MaterialsSection: React.FC = () => {
   const [previewDoc, setPreviewDoc] = useState<StudyMaterial | null>(null);
   const [downloadedIds, setDownloadedIds] = useState<string[]>([]);
 
-  const categories = ['ALL', 'Đề thi vào 10', 'Đề THPT Quốc gia', 'Chuyên đề THCS', 'Sổ tay công thức'];
+  const categories = ['ALL', 'Toán 9 & Thi vào 10', 'Toán 8 Trọng tâm', 'Toán 6 & Toán 7', 'Tin học 6-7-8-9'];
 
   const filteredDocs = STUDY_MATERIALS.filter((doc) => {
     const matchCat = selectedCategory === 'ALL' || doc.category === selectedCategory;

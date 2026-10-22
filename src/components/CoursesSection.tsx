@@ -21,11 +21,12 @@ export const CoursesSection: React.FC<CoursesSectionProps> = ({ onSelectCourseFo
   const [detailCourse, setDetailCourse] = useState<CourseItem | null>(null);
 
   const filterTabs = [
-    { id: 'ALL', label: 'Tất cả khóa học' },
-    { id: 'LUYEN_THI_10', label: 'Luyện thi vào 10 (Cơ bản & Chuyên)' },
-    { id: 'THPT_QG', label: 'Luyện thi THPT Quốc gia & ĐGNL' },
-    { id: 'THCS', label: 'Toán THCS (Lớp 6, 7, 8)' },
-    { id: 'THPT', label: 'Toán THPT (Lớp 10, 11)' }
+    { id: 'ALL', label: 'Tất cả khóa học (Toán & Tin 6–9)' },
+    { id: 'TOAN_9_VAO_10', label: 'Toán 9 & Thi vào 10 (Thế mạnh)' },
+    { id: 'TOAN_8', label: 'Toán Lớp 8 Trọng tâm' },
+    { id: 'TOAN_6_7', label: 'Toán Lớp 6 & Lớp 7' },
+    { id: 'TIN_HOC_THCS', label: 'Tin học THCS (6, 7, 8, 9)' },
+    { id: 'HSG_TOAN_TIN', label: 'Bồi dưỡng HSG Toán & Tin' }
   ];
 
   const filteredCourses =

@@ -242,11 +242,11 @@ export const RegistrationSection: React.FC<RegistrationSectionProps> = ({
                       onChange={(e) => setGrade(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-blue-500"
                     >
-                      <option>Lớp 6 - 7 - 8 (Toán THCS)</option>
-                      <option>Lớp 9 (Ôn thi vào 10 Công lập)</option>
-                      <option>Lớp 9 (Ôn thi Chuyên Toán / HSG)</option>
-                      <option>Lớp 10 - 11 (Toán THPT)</option>
-                      <option>Lớp 12 (Luyện thi Tốt nghiệp THPT & ĐGNL)</option>
+                      <option>Lớp 9 (Toán 9 Trọng tâm & Ôn thi vào 10 - Thế mạnh)</option>
+                      <option>Lớp 8 (Toán 8 Hằng đẳng thức, Phân thức & Đồng dạng)</option>
+                      <option>Lớp 6 & Lớp 7 (Toán Số học, Đại số & Hình học THCS)</option>
+                      <option>Khối 6, 7, 8, 9 (Tin học THCS & Lập trình Thuật toán)</option>
+                      <option>Bồi dưỡng Học sinh giỏi Toán THCS & Tin học trẻ</option>
                     </select>
                   </div>
 

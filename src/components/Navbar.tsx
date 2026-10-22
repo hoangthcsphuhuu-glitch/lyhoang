@@ -70,11 +70,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {profile.fullName}
                 </span>
                 <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
-                  Toán 6–12
+                  Toán & Tin 6–9
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[200px] sm:max-w-[260px]">
-                Luyện thi vào 10 & THPT Quốc gia
+              <p className="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[200px] sm:max-w-[280px]">
+                {profile.workplace} • 17 Năm Kinh Nghiệm
               </p>
             </div>
           </button>
