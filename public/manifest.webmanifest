@@ -1,0 +1,18 @@
+{
+  "name": "Toán Thầy Lý Hoàng - Luyện Thi 10 & THPT Quốc Gia",
+  "short_name": "Toán Thầy Lý Hoàng",
+  "description": "Ứng dụng học Toán THCS & THPT, Kho tài liệu, Thi thử trắc nghiệm và Hồ sơ Giáo viên Lý Hoàng",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e3a8a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
