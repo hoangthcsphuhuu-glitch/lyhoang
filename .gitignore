@@ -1,5 +1,0 @@
-node_modules/
-android_apk_build/
-.gh_token_cache
-.DS_Store
-*.log
