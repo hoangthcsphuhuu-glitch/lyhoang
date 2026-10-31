@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thầy Lý Hoàng Em - Giáo viên Toán & Chuyển đổi số Giáo dục</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            800: '#0f172a',
+                            900: '#0a0f1d',
+                        },
+                        tech: {
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            teal: '#14b8a6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Math Pattern & Glassmorphism */
+        .math-bg {
+            background-color: #0f172a;
+            background-image: radial-gradient(rgba(14, 165, 233, 0.15) 1px, transparent 1px),
+                              radial-gradient(rgba(20, 184, 166, 0.1) 1px, #0f172a 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .floating-symbol {
+            animation: float 6s ease-in-out infinite;
+        }
+        .floating-symbol-delayed {
+            animation: float 7s ease-in-out 2s infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(4deg); }
+        }
+    </style>
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- Top Notification Toast (Hidden by default) -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300 translate-y-4 opacity-0">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-sky-500/40 flex items-center gap-3">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-teal-400 text-xl"></i>
+            <span id="toast-message" class="text-sm font-medium">Thông báo hệ thống</span>
+        </div>
+    </div>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-sky-600 to-teal-500 flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-sky-500/20 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-square-root-variable"></i>
+                </div>
+                <div>
+                    <span class="block font-extrabold text-slate-900 text-lg leading-none">Thầy Lý Hoàng Em</span>
+                    <span class="text-xs font-medium text-sky-600">THCS & THPT Vĩnh Lộc • 17 Năm KN • Toán & Tin 6–9</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+                <a href="#about" class="hover:text-sky-600 transition">Phương pháp</a>
+                <a href="#projects" class="hover:text-sky-600 transition">Dự án Công nghệ</a>
+                <a href="#resources" class="hover:text-sky-600 transition">Kho Học liệu</a>
+                <a href="#ai-assistant" class="hover:text-sky-600 transition flex items-center gap-1.5 text-teal-600">
+                    <i class="fa-solid fa-robot"></i> Trợ lý Toán AI
+                </a>
+                <a href="#contact" class="px-4 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-sky-600 transition shadow-sm">
+                    Kết nối ngay
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="Mở menu">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-5 space-y-2">
+            <a href="#about" class="mobile-link block px-3 py-2.5 rounded-xl font-medium text-slate-700 hover:bg-sky-50 hover:text-sky-600">Phương pháp giảng dạy</a>
+            <a href="#projects" class="mobile-link block px-3 py-2.5 rounded-xl font-medium text-slate-700 hover:bg-sky-50 hover:text-sky-600">Dự án Công nghệ & SKKN</a>
+            <a href="#resources" class="mobile-link block px-3 py-2.5 rounded-xl font-medium text-slate-700 hover:bg-sky-50 hover:text-sky-600">Kho Học liệu chuẩn 5512</a>
+            <a href="#ai-assistant" class="mobile-link block px-3 py-2.5 rounded-xl font-semibold text-teal-600 bg-teal-50/70">Trải nghiệm Toán của Thầy Em</a>
+            <a href="#contact" class="mobile-link block text-center mt-2 py-2.5 rounded-xl font-semibold bg-slate-900 text-white">Liên hệ & Trao đổi</a>
+        </div>
+    </header>
+
+    <!-- 1. HERO SECTION -->
+    <section id="home" class="math-bg text-white relative overflow-hidden py-16 md:py-24">
+        <!-- Decorative Math Symbols -->
+        <div class="hidden lg:block absolute top-14 left-12 text-sky-400/20 text-6xl font-bold select-none floating-symbol">∑</div>
+        <div class="hidden lg:block absolute bottom-16 left-1/3 text-teal-400/20 text-5xl font-bold select-none floating-symbol-delayed">π</div>
+        <div class="hidden lg:block absolute top-20 right-16 text-sky-400/20 text-6xl font-bold select-none floating-symbol">∆</div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Column -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 text-xs sm:text-sm font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-teal-400 animate-ping"></span>
+                        Trường THCS và THPT Vĩnh Lộc • 17 Năm Kinh Nghiệm Sư Phạm
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Thầy <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">Lý Hoàng Em</span>
+                        <span class="block text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-200 mt-2">
+                            Giáo viên Toán & Tin học THCS (Khối 6, 7, 8, 9)
+                        </span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        Với <strong class="text-white">17 năm kinh nghiệm</strong> tại <strong class="text-white">Trường THCS và THPT Vĩnh Lộc</strong>, thế mạnh mũi nhọn là môn <strong class="text-sky-300">Toán THCS (6, 7, 8, 9)</strong> kết hợp giảng dạy <strong class="text-teal-300">Tin học 6, 7, 8, 9</strong>. Ứng dụng <strong class="text-white">Trí tuệ nhân tạo (AI)</strong>, <strong class="text-white">Công nghệ số</strong> và <strong class="text-white">STEM</strong> vào giảng dạy hiện đại, trực quan.
+                    </p>
+
+                    <!-- Quick Stats Badges -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-4 pt-2 max-w-xl">
+                        <div class="glass-card p-3.5 rounded-2xl">
+                            <div class="text-sky-400 font-extrabold text-xl sm:text-2xl">17 Năm</div>
+                            <div class="text-xs text-slate-300 mt-0.5">Kinh nghiệm giảng dạy</div>
+                        </div>
+                        <div class="glass-card p-3.5 rounded-2xl">
+                            <div class="text-teal-400 font-extrabold text-xl sm:text-2xl">Toán 6•7•8•9</div>
+                            <div class="text-xs text-slate-300 mt-0.5">Thế mạnh mũi nhọn THCS</div>
+                        </div>
+                        <div class="glass-card p-3.5 rounded-2xl">
+                            <div class="text-amber-400 font-extrabold text-xl sm:text-2xl">Tin 6•7•8•9</div>
+                            <div class="text-xs text-slate-300 mt-0.5">STEM, AI & Học liệu số</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-3">
+                        <a href="#resources" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 to-teal-500 hover:from-sky-600 hover:to-teal-600 text-white font-bold shadow-lg shadow-sky-500/25 flex items-center gap-2.5 transition transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-folder-open"></i>
+                            Khám phá Học liệu
+                        </a>
+                        <a href="#ai-assistant" class="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold flex items-center gap-2.5 transition">
+                            <i class="fa-solid fa-wand-magic-sparkles text-teal-300"></i>
+                            Trải nghiệm Trợ lý Toán AI
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Teacher Profile & Interactive Dashboard Card -->
+                <div class="lg:col-span-5">
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 relative shadow-2xl">
+                        <div class="flex items-center gap-4 pb-6 border-b border-white/10">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-sky-500 to-teal-400 flex items-center justify-center text-2xl font-extrabold text-slate-950 shadow-lg">
+                                LHE
+                            </div>
+                            <div>
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                                    Giáo viên dạy giỏi
+                                </span>
+                                <h2 class="text-xl font-bold text-white mt-1">Thầy Lý Hoàng Em</h2>
+                                <p class="text-xs text-slate-300">Tổ Toán - Tin • Trường THCS & THPT Vĩnh Lộc</p>
+                            </div>
+                        </div>
+
+                        <!-- Highlights inside Hero Card -->
+                        <div class="space-y-4 my-6">
+                            <div class="flex items-start gap-3.5 bg-white/5 p-3.5 rounded-2xl border border-white/10">
+                                <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-robot"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-bold text-white">Chatbot "Toán của Thầy Em"</h3>
+                                    <p class="text-xs text-slate-300 mt-0.5">Hỗ trợ giải đáp Toán 6 & 7 24/7, tạo đề ôn tập cá nhân hóa và lưu kết quả tự động.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5 bg-white/5 p-3.5 rounded-2xl border border-white/10">
+                                <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-compass-drafting"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-bold text-white">Web App Học Toán Tương Tác (GoogMath)</h3>
+                                    <p class="text-xs text-slate-300 mt-0.5">Trực quan hóa Hình học phẳng, Số nguyên, Phân số và Tỉ lệ thức ngay trên trình duyệt.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5 bg-white/5 p-3.5 rounded-2xl border border-white/10">
+                                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-bold text-white">Quản lý Lớp học Đám mây Tự động</h3>
+                                    <p class="text-xs text-slate-300 mt-0.5">Tự động hóa chấm điểm, thống kê tiến độ và kết nối thông tin nhanh với phụ huynh.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs text-slate-300 pt-2">
+                            <span><i class="fa-solid fa-location-dot text-sky-400 mr-1"></i> An Giang, Việt Nam</span>
+                            <a href="#projects" class="text-teal-300 hover:underline font-semibold">Xem chi tiết hồ sơ →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. GIỚI THIỆU & PHƯƠNG PHÁP GIẢNG DẠY -->
+    <section id="about" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+            <span class="text-xs font-bold uppercase tracking-wider text-sky-600 bg-sky-100 px-3.5 py-1.5 rounded-full">Triết lý & Phương pháp</span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-3">Đổi mới phương pháp dạy học Toán kỷ nguyên số</h2>
+            <p class="text-slate-600 mt-3 text-base">
+                Kết hợp chặt chẽ giữa Chương trình Giáo dục phổ thông 2018 với các công cụ số hiện đại, giúp mỗi tiết học Toán trở nên sinh động, dễ hiểu và gắn liền thực tiễn.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Pillar 1 -->
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-5">
+                    <i class="fa-solid fa-file-signature"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Chuẩn Công văn 5512</h3>
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                    Kế hoạch bài dạy được thiết kế theo chuỗi 4 hoạt động rõ ràng: Mở đầu, Hình thành kiến thức, Luyện tập và Vận dụng phát triển phẩm chất, năng lực.
+                </p>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center text-xl mb-5">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Tích hợp Năng lực số</h3>
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                    Lồng ghép tối thiểu 20% nội dung kỹ năng số vào chương trình Toán 6 & 7, hướng dẫn học sinh sử dụng phần mềm hình học động và AI có trách nhiệm.
+                </p>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-5">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Học tập qua dự án STEM</h3>
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                    Gắn kết kiến thức Hình học trực quan, Thống kê và Xác suất với các sản phẩm thực hành STEM gần gũi đời sống của học sinh.
+                </p>
+            </div>
+
+            <!-- Pillar 4 -->
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl mb-5">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Tự động hóa Đám mây</h3>
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                    Ứng dụng Google Apps Script, Google Sheets & Web App giúp theo dõi sát sao năng lực từng học sinh và phản hồi tức thời.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. DỰ ÁN CÔNG NGHỆ & SÁNG KIẾN (FEATURED TECH PROJECTS) -->
+    <section id="projects" class="py-16 md:py-24 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-400 bg-teal-500/10 border border-teal-500/30 px-3.5 py-1.5 rounded-full">
+                        Sản phẩm Số & SKKN
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold mt-3">Dự án Công nghệ & Sáng kiến nổi bật</h2>
+                </div>
+                <p class="text-slate-400 text-sm max-w-md">
+                    Nhấn vào từng dự án để xem mô tả quy trình vận hành, công nghệ cốt lõi và hiệu quả thực nghiệm tại Trường THCS và THPT Vĩnh Lộc.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-slate-800/90 border border-slate-700 rounded-3xl p-6 flex flex-col justify-between hover:border-sky-500/60 transition group">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300">AI & Apps Script</span>
+                            <i class="fa-solid fa-robot text-2xl text-sky-400 group-hover:scale-110 transition"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Chatbot "Toán của Thầy Em"</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            Trợ lý ảo thông minh hỗ trợ giải đáp kiến thức Toán 6 & 7, tự động sinh câu hỏi trắc nghiệm ôn tập và đồng bộ điểm số về hệ thống quản lý của giáo viên.
+                        </p>
+                        <ul class="text-xs text-slate-400 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Hướng dẫn giải từng bước thay vì chỉ chép đáp án</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Tự động lưu lịch sử làm bài vào Google Sheets</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Tích hợp sẵn ngân hàng câu hỏi Toán 6, 7</li>
+                        </ul>
+                    </div>
+                    <button onclick="openProjectModal('chatbot')" class="w-full py-3 rounded-2xl bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+                        <span>Xem chi tiết dự án</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-slate-800/90 border border-slate-700 rounded-3xl p-6 flex flex-col justify-between hover:border-teal-500/60 transition group">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-teal-500/20 text-teal-300">Web App Tương tác</span>
+                            <i class="fa-solid fa-shapes text-2xl text-teal-400 group-hover:scale-110 transition"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Hệ thống Web App GoogMath</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            Nền tảng luyện tập Toán học trực quan kết hợp trò chơi hóa (Gamification), giúp học sinh tương tác trực tiếp với đồ thị, hình học phẳng và đại số.
+                        </p>
+                        <ul class="text-xs text-slate-400 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Tương thích mượt mà trên điện thoại và máy tính</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Phản hồi đúng/sai kèm giải thích công thức</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Bảng xếp hạng thi đua theo tuần cho các lớp</li>
+                        </ul>
+                    </div>
+                    <button onclick="openProjectModal('googmath')" class="w-full py-3 rounded-2xl bg-teal-500/20 hover:bg-teal-500 text-teal-300 hover:text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+                        <span>Xem chi tiết dự án</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-slate-800/90 border border-slate-700 rounded-3xl p-6 flex flex-col justify-between hover:border-amber-500/60 transition group">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300">Sáng kiến Kinh nghiệm</span>
+                            <i class="fa-solid fa-award text-2xl text-amber-400 group-hover:scale-110 transition"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">SKKN Giáo viên dạy giỏi cấp Tỉnh</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            Đề tài ứng dụng Trí tuệ nhân tạo (AI) và học liệu số nhằm nâng cao hứng thú, năng lực tự học và kết quả học tập môn Toán cho học sinh phổ thông.
+                        </p>
+                        <ul class="text-xs text-slate-400 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Quy trình thiết kế học liệu số nhanh gọn, chuẩn xác</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Số liệu thực nghiệm minh bạch, khả năng nhân rộng cao</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i> Bám sát định hướng chuyển đổi số ngành Giáo dục</li>
+                        </ul>
+                    </div>
+                    <button onclick="openProjectModal('skkn')" class="w-full py-3 rounded-2xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-semibold text-sm transition flex items-center justify-center gap-2">
+                        <span>Xem chi tiết đề tài</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. KHO HỌC LIỆU SỐ & BÀI GIẢNG (RESOURCE HUB) -->
+    <section id="resources" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-sky-600 bg-sky-100 px-3.5 py-1.5 rounded-full">Chia sẻ Cộng đồng</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-3">Kho Học Liệu Số & Bài Giảng</h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2">
+                    Tổng hợp Kế hoạch bài dạy chuẩn 5512, bài giảng tương tác, chuyên đề STEM và đề ôn tập Toán 6, 7.
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-80">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input id="resource-search" type="text" placeholder="Tìm bài giảng, số nguyên, tỉ lệ thức..."
+                    class="w-full pl-11 pr-4 py-3 rounded-2xl bg-white border border-slate-200 text-sm focus:outline-none focus:border-sky-500 shadow-sm">
+            </div>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div id="resource-tabs" class="flex flex-wrap gap-2 mb-8">
+            <button data-category="all" class="res-tab active px-4 py-2.5 rounded-xl text-sm font-bold bg-slate-900 text-white transition">
+                Tất cả
+            </button>
+            <button data-category="toan6" class="res-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">
+                Toán Lớp 6
+            </button>
+            <button data-category="toan7" class="res-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">
+                Toán Lớp 7
+            </button>
+            <button data-category="stem" class="res-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">
+                Chuyên đề STEM
+            </button>
+            <button data-category="deon" class="res-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">
+                Đề ôn tập
+            </button>
+        </div>
+
+        <!-- Resource Cards Grid -->
+        <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Populated dynamically via JS -->
+        </div>
+    </section>
+
+    <!-- 5. GÓC TRẢI NGHIỆM NHANH "TOÁN CỦA THẦY EM" (MINI INTERACTIVE DEMO WIDGET) -->
+    <section id="ai-assistant" class="py-16 md:py-24 bg-gradient-to-b from-slate-100 to-sky-50/60 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-100 px-3.5 py-1.5 rounded-full">
+                    <i class="fa-solid fa-bolt mr-1"></i> Tương tác trực tiếp trên trang
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-3">Góc Trải Nghiệm "Toán của Thầy Em"</h2>
+                <p class="text-slate-600 mt-2 text-sm sm:text-base">
+                    Chọn khối lớp để ôn nhanh kiến thức trọng tâm với trợ lý ảo hoặc thử sức với câu hỏi trắc nghiệm có giải thích từng bước.
+                </p>
+            </div>
+
+            <!-- Grade Switcher -->
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex p-1.5 rounded-2xl bg-white shadow-sm border border-slate-200">
+                    <button id="btn-grade-6" onclick="switchDemoGrade(6)" class="px-6 py-2.5 rounded-xl text-sm font-bold bg-sky-600 text-white shadow transition">
+                        <i class="fa-solid fa-graduation-cap mr-1.5"></i> Toán Lớp 6
+                    </button>
+                    <button id="btn-grade-7" onclick="switchDemoGrade(7)" class="px-6 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:text-slate-900 transition">
+                        <i class="fa-solid fa-compass-drafting mr-1.5"></i> Toán Lớp 7
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Left: Interactive Concept Explorer (Chat Simulator) -->
+                <div class="lg:col-span-6 bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-teal-500 flex items-center justify-center text-slate-950 font-bold">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm">Trợ lý AI - Toán của Thầy Em</h3>
+                                <p id="chat-grade-label" class="text-xs text-teal-300">Đang chọn: Chương trình Toán Lớp 6</p>
+                            </div>
+                        </div>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300">Sẵn sàng</span>
+                    </div>
+
+                    <div class="p-6">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
+                            Chọn nhanh chủ đề bạn muốn thầy giải thích:
+                        </p>
+                        <div id="topic-chips" class="flex flex-wrap gap-2 mb-6">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <!-- AI Response Box -->
+                        <div id="ai-explanation-box" class="bg-slate-50 border border-slate-200/90 rounded-2xl p-5 min-h-[210px] flex flex-col justify-between">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Quick Step-by-Step Interactive Quiz -->
+                <div class="lg:col-span-6 bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden">
+                    <div class="bg-gradient-to-r from-sky-600 to-teal-600 text-white px-6 py-4 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-pen-ruler text-lg"></i>
+                            <h3 class="font-bold text-sm">Thử thách Nhanh & Giải thích từng bước</h3>
+                        </div>
+                        <span id="quiz-progress" class="text-xs font-bold bg-white/20 px-3 py-1 rounded-full">Câu 1/2</span>
+                    </div>
+
+                    <div class="p-6">
+                        <div id="quiz-question" class="font-bold text-slate-900 text-base sm:text-lg mb-4">
+                            <!-- Question populated by JS -->
+                        </div>
+
+                        <div id="quiz-options" class="space-y-2.5 mb-5">
+                            <!-- Options populated by JS -->
+                        </div>
+
+                        <!-- Step-by-step Feedback Area -->
+                        <div id="quiz-feedback" class="hidden rounded-2xl p-4 text-sm mb-4"></div>
+
+                        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                            <span class="text-xs text-slate-500">Nhấn vào đáp án để xem lời giải chi tiết</span>
+                            <button onclick="nextQuizQuestion()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-sky-600 text-white text-xs font-bold transition flex items-center gap-1.5">
+                                Câu tiếp theo <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. LIÊN HỆ & KẾT NỐI (CONTACT & FOOTER) -->
+    <section id="contact" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+            <!-- Info Column -->
+            <div class="lg:col-span-5 math-bg text-white p-8 sm:p-10 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-300 bg-teal-500/20 px-3 py-1 rounded-full">
+                        Liên hệ & Hợp tác chuyên môn
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-4">Kết nối cùng Thầy Lý Hoàng Em</h2>
+                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                        Học sinh, quý phụ huynh hoặc quý thầy cô đồng nghiệp cần trao đổi chuyên môn, nhận file học liệu gốc (Word/PPT/Code) vui lòng gửi lời nhắn.
+                    </p>
+
+                    <div class="space-y-4 mt-8 text-sm">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-sky-400 shrink-0">
+                                <i class="fa-solid fa-school"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Đơn vị công tác</div>
+                                <div class="text-slate-300">Trường THCS và THPT Vĩnh Lộc</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-teal-400 shrink-0">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Chuyên môn phụ trách</div>
+                                <div class="text-slate-300">Giáo viên Toán • Ứng dụng AI, STEM & Chuyển đổi số</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-amber-400 shrink-0">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Hỗ trợ học liệu trực tuyến</div>
+                                <div class="text-slate-300">Email: lyhoang2908@gmail.com</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 border-t border-white/10 mt-8 flex items-center justify-between text-xs text-slate-400">
+                    <span>© Thầy Lý Hoàng Em</span>
+                    <span>Vĩnh Lộc • An Giang</span>
+                </div>
+            </div>
+
+            <!-- Form Column -->
+            <div class="lg:col-span-7 p-8 sm:p-10">
+                <h3 class="text-xl font-extrabold text-slate-900 mb-2">Gửi câu hỏi hoặc yêu cầu học liệu</h3>
+                <p class="text-sm text-slate-500 mb-6">Điền thông tin bên dưới, hệ thống sẽ ghi nhận và phản hồi sớm nhất.</p>
+
+                <form id="contact-form" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Họ và tên *</label>
+                            <input type="text" id="sender-name" required placeholder="Nhập họ và tên của bạn"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-sky-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Bạn là *</label>
+                            <select id="sender-role" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-sky-500 bg-white">
+                                <option value="Học sinh">Học sinh</option>
+                                <option value="Giáo viên đồng nghiệp">Giáo viên đồng nghiệp</option>
+                                <option value="Phụ huynh học sinh">Phụ huynh học sinh</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Email hoặc Số điện thoại (Zalo) *</label>
+                        <input type="text" id="sender-contact" required placeholder="Ví dụ: 09xx xxx xxx hoặc email@gmail.com"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-sky-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Nội dung trao đổi / Tài liệu cần nhận *</label>
+                        <textarea id="sender-message" rows="4" required placeholder="Nhập câu hỏi Toán học hoặc tên giáo án 5512, chuyên đề STEM bạn muốn nhận..."
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-sky-500"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-700 hover:to-teal-700 text-white font-bold text-sm shadow-lg shadow-sky-500/20 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Gửi tin nhắn cho Thầy Em
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-8 border-t border-slate-800 text-center text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>Trang thông tin cá nhân & Học liệu số của <strong class="text-white">Thầy Lý Hoàng Em</strong> — Trường THCS và THPT Vĩnh Lộc.</p>
+            <a href="#home" class="text-sky-400 hover:text-sky-300 font-semibold flex items-center gap-1">
+                Lên đầu trang <i class="fa-solid fa-arrow-up"></i>
+            </a>
+        </div>
+    </footer>
+
+    <!-- UNIVERSAL INTERACTIVE MODAL (For Projects & Resource Previews) -->
+    <div id="app-modal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-fadeIn">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center" aria-label="Đóng">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-badge" class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-700 mb-3">
+                Thông tin chi tiết
+            </div>
+            <h3 id="modal-title" class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-3">Tiêu đề</h3>
+            <div id="modal-body" class="text-sm text-slate-600 space-y-3 leading-relaxed">
+                <!-- Dynamic content -->
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex flex-wrap justify-end gap-3">
+                <button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold">
+                    Đóng
+                </button>
+                <a href="#contact" onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-download"></i> Đăng ký nhận học liệu / Mã nguồn
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // 2. Toast Notification Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.textContent = message;
+            toast.classList.remove('hidden', 'translate-y-4', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 3500);
+        }
+
+        // 3. Project Details Modal Data
+        const projectDetails = {
+            chatbot: {
+                badge: "Dự án AI & Tự động hóa",
+                title: "Chatbot tương tác 'Toán của Thầy Em'",
+                html: `
+                    <p><strong>Mục tiêu:</strong> Hỗ trợ học sinh Lớp 6 & Lớp 7 ôn tập kiến thức Toán mọi lúc mọi nơi với sự dẫn dắt từng bước như có giáo viên kèm cặp.</p>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="font-bold text-slate-800">Các tính năng cốt lõi:</div>
+                        <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                            <li>Giải thích cặn kẽ các chủ đề: Số nguyên, Phân số, Tỉ lệ thức, Các trường hợp bằng nhau của tam giác.</li>
+                            <li>Tự động tạo bộ câu hỏi trắc nghiệm theo mức độ Nhận biết - Thông hiểu - Vận dụng.</li>
+                            <li>Tích hợp Google Apps Script (` + "`Code.gs`" + `) ghi nhận điểm số và thời gian làm bài vào Google Sheets của giáo viên.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            googmath: {
+                badge: "Nền tảng Web App Giáo dục",
+                title: "Hệ thống Web App Học Toán Tương Tác (GoogMath)",
+                html: `
+                    <p><strong>Mục tiêu:</strong> Chuyển hóa các con số và hình vẽ khô khan trên bảng đen thành các mô hình tương tác trực quan ngay trên trình duyệt web.</p>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="font-bold text-slate-800">Điểm nổi bật:</div>
+                        <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                            <li>Trực quan hóa trục số nguyên, phép cộng trừ phân số và các hình có trục/tâm đối xứng.</li>
+                            <li>Chế độ thi đấu tính điểm nhanh giúp giờ luyện tập trên lớp hào hứng hơn.</li>
+                            <li>Phát triển 20% năng lực số cho học sinh theo đúng định hướng chương trình mới.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            skkn: {
+                badge: "Sáng kiến Kinh nghiệm Cấp Tỉnh",
+                title: "Ứng dụng AI & Công nghệ số nâng cao hiệu quả dạy học Toán",
+                html: `
+                    <p><strong>Đơn vị áp dụng:</strong> Trường THCS và THPT Vĩnh Lộc.</p>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="font-bold text-slate-800">Giá trị thực tiễn của đề tài:</div>
+                        <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                            <li>Xây dựng quy trình chuẩn giúp giáo viên thiết kế Kế hoạch bài dạy 5512 tích hợp năng lực số nhanh chóng.</li>
+                            <li>Kết hợp linh hoạt giữa Chatbot AI, phiếu học tập số và hoạt động nhóm trên lớp.</li>
+                            <li>Giúp giảm tải thời gian chấm chữa thủ công và tăng tỷ lệ học sinh yêu thích môn Toán.</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        function openProjectModal(key) {
+            const item = projectDetails[key];
+            if (!item) return;
+            document.getElementById('modal-badge').textContent = item.badge;
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-body').innerHTML = item.html;
+            document.getElementById('app-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('app-modal').classList.add('hidden');
+        }
+
+        // 4. Resource Hub Data & Filtering
+        const resourcesData = [
+            {
+                id: 1,
+                category: "toan6",
+                tag: "Toán Lớp 6 • CV 5512",
+                title: "KHBD Toán 6: Phép cộng và phép trừ số nguyên (Tích hợp Năng lực số)",
+                desc: "Kế hoạch bài dạy thiết kế đủ 4 bước theo Công văn 5512, tích hợp trò chơi trục số tương tác.",
+                format: "Word + PPT"
+            },
+            {
+                id: 2,
+                category: "toan6",
+                tag: "Toán Lớp 6 • Hình học",
+                title: "Bài giảng tương tác: Hình có trục đối xứng & Hình có tâm đối xứng",
+                desc: "Kết hợp mô phỏng trực quan và hoạt động nhận diện đối xứng trong tự nhiên, kiến trúc.",
+                format: "Slide + Web App"
+            },
+            {
+                id: 3,
+                category: "toan7",
+                tag: "Toán Lớp 7 • Đại số",
+                title: "KHBD Toán 7: Tỉ lệ thức và Tính chất dãy tỉ số bằng nhau",
+                desc: "Bao gồm hệ thống bài toán thực tế chia tỉ lệ và phiếu học tập phân hóa năng lực học sinh.",
+                format: "Word (.docx)"
+            },
+            {
+                id: 4,
+                category: "toan7",
+                tag: "Toán Lớp 7 • Hình học",
+                title: "Chuyên đề: Các trường hợp bằng nhau của hai tam giác",
+                desc: "Bộ học liệu kèm hình vẽ động hướng dẫn học sinh cách trình bày chứng minh hình học chặt chẽ.",
+                format: "PDF + GeoGebra"
+            },
+            {
+                id: 5,
+                category: "stem",
+                tag: "Chuyên đề STEM",
+                title: "Dự án STEM: Chế tạo Thước đo góc & Ứng dụng đo chiều cao cây",
+                desc: "Học sinh vận dụng kiến thức góc và tam giác để chế tạo dụng cụ đo đạc ngoài sân trường.",
+                format: "Bộ Hồ sơ STEM"
+            },
+            {
+                id: 6,
+                category: "deon",
+                tag: "Đề ôn tập • Kèm Ma trận",
+                title: "Bộ đề ôn tập Kiểm tra Giữa kỳ & Cuối kỳ Toán 6, Toán 7",
+                desc: "Đầy đủ ma trận, bảng đặc tả và đáp án chi tiết theo cấu trúc đánh giá mới.",
+                format: "PDF + Word"
+            }
+        ];
+
+        let activeCategory = "all";
+        const resourceGrid = document.getElementById('resource-grid');
+        const searchInput = document.getElementById('resource-search');
+
+        function renderResources() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            const filtered = resourcesData.filter(item => {
+                const matchCat = activeCategory === "all" || item.category === activeCategory;
+                const matchText = item.title.toLowerCase().includes(keyword) || item.desc.toLowerCase().includes(keyword);
+                return matchCat && matchText;
+            });
+
+            if (filtered.length === 0) {
+                resourceGrid.innerHTML = `
+                    <div class="col-span-full bg-white rounded-3xl p-10 text-center border border-slate-200">
+                        <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2"></i>
+                        <p class="font-bold text-slate-700">Không tìm thấy học liệu phù hợp với từ khóa.</p>
+                        <p class="text-xs text-slate-500 mt-1">Hãy thử từ khóa khác hoặc chọn mục "Tất cả".</p>
+                    </div>
+                `;
+                return;
+            }
+
+            resourceGrid.innerHTML = filtered.map(item => `
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-700 border border-sky-200/60">${item.tag}</span>
+                            <span class="text-xs font-semibold text-slate-400"><i class="fa-regular fa-file-lines mr-1"></i>${item.format}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base leading-snug mb-2">${item.title}</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-5">${item.desc}</p>
+                    </div>
+                    <div class="flex items-center gap-2 pt-3 border-t border-slate-100">
+                        <button onclick="previewResource(${item.id})" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition">
+                            <i class="fa-regular fa-eye mr-1"></i> Xem cấu trúc
+                        </button>
+                        <button onclick="downloadResource('${item.title}')" class="flex-1 py-2.5 px-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs transition">
+                            <i class="fa-solid fa-cloud-arrow-down mr-1"></i> Tải học liệu
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function previewResource(id) {
+            const res = resourcesData.find(r => r.id === id);
+            if (!res) return;
+            document.getElementById('modal-badge').textContent = res.tag;
+            document.getElementById('modal-title').textContent = res.title;
+            document.getElementById('modal-body').innerHTML = `
+                <p>${res.desc}</p>
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div class="font-bold text-slate-800 mb-1">Cấu trúc hồ sơ học liệu bao gồm:</div>
+                    <ul class="list-disc pl-5 text-xs space-y-1 text-slate-600">
+                        <li>Mục tiêu bài học: Phẩm chất, năng lực toán học & tích hợp năng lực số.</li>
+                        <li>Chuỗi 4 hoạt động dạy học (Mở đầu - Hình thành kiến thức - Luyện tập - Vận dụng).</li>
+                        <li>Phiếu học tập cá nhân/nhóm và câu hỏi củng cố tương tác.</li>
+                    </ul>
+                </div>
+            `;
+            document.getElementById('app-modal').classList.remove('hidden');
+        }
+
+        function downloadResource(title) {
+            showToast(`Đang mở liên kết tải học liệu: "${title}"`);
+        }
+
+        document.querySelectorAll('.res-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.res-tab').forEach(b => {
+                    b.className = "res-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition";
+                });
+                btn.className = "res-tab active px-4 py-2.5 rounded-xl text-sm font-bold bg-slate-900 text-white transition";
+                activeCategory = btn.getAttribute('data-category');
+                renderResources();
+            });
+        });
+
+        searchInput.addEventListener('input', renderResources);
+
+        // 5. Interactive Mini Demo ("Toán của Thầy Em")
+        const demoContent = {
+            6: {
+                topics: [
+                    {
+                        name: "Cộng hai số nguyên âm",
+                        rule: "Muốn cộng hai số nguyên âm, ta cộng hai giá trị tuyệt đối của chúng rồi đặt dấu trừ (-) trước kết quả.",
+                        example: "Ví dụ: (-12) + (-8) = -(12 + 8) = -20.",
+                        tip: "Mẹo nhớ của Thầy Em: 'Nợ thêm nợ thì khoản nợ tăng lên!'"
+                    },
+                    {
+                        name: "Quy tắc rút gọn Phân số",
+                        rule: "Chia cả tử và mẫu của phân số cho một ước chung (khác 1 và -1) để được phân số tối giản.",
+                        example: "Ví dụ: Rút gọn -15/25 bằng cách chia cả tử và mẫu cho 5, ta được -3/5.",
+                        tip: "Mẹo nhớ: Tìm ƯCLN của tử và mẫu để rút gọn một bước duy nhất!"
+                    },
+                    {
+                        name: "Hình có trục đối xứng",
+                        rule: "Đường thẳng d gọi là trục đối xứng của hình H nếu khi gấp hình theo đường thẳng d, hai phần chồng khít lên nhau.",
+                        example: "Ví dụ: Hình tam giác đều có 3 trục đối xứng; Hình vuông có 4 trục đối xứng.",
+                        tip: "Ứng dụng STEM: Cắt giấy thủ công đối xứng trang trí lớp học."
+                    }
+                ],
+                quizzes: [
+                    {
+                        q: "Câu 1 (Toán 6): Kết quả của phép tính (-15) + (+7) bằng bao nhiêu?",
+                        options: ["-22", "-8", "+8", "+22"],
+                        correct: 1,
+                        explain: "Hai số nguyên khác dấu: Ta lấy số lớn hơn trừ số nhỏ hơn (15 - 7 = 8) rồi mang dấu của số có giá trị tuyệt đối lớn hơn là dấu (-), kết quả là -8."
+                    },
+                    {
+                        q: "Câu 2 (Toán 6): Trong các hình sau, hình nào có tâm đối xứng?",
+                        options: ["Tam giác đều", "Hình thang cân", "Hình bình hành", "Tam giác cân"],
+                        correct: 2,
+                        explain: "Hình bình hành nhận giao điểm của hai đường chéo làm tâm đối xứng."
+                    }
+                ]
+            },
+            7: {
+                topics: [
+                    {
+                        name: "Tỉ lệ thức & Tính chất",
+                        rule: "Tỉ lệ thức là đẳng thức của hai tỉ số a/b = c/d. Tính chất cơ bản: Nếu a/b = c/d thì a.d = b.c (Tích ngoại tỉ bằng tích trung tỉ).",
+                        example: "Ví dụ: Tìm x biết x/6 = 2/3 ⇒ 3.x = 6.2 ⇒ 3x = 12 ⇒ x = 4.",
+                        tip: "Mẹo nhớ của Thầy Em: Nhân chéo hai số đã biết rồi chia cho số đối diện với x!"
+                    },
+                    {
+                        name: "Tổng ba góc của một tam giác",
+                        rule: "Tổng số đo ba góc trong một tam giác bất kỳ luôn bằng 180°.",
+                        example: "Ví dụ: Tam giác ABC có góc A = 60°, góc B = 50° thì góc C = 180° - (60° + 50°) = 70°.",
+                        tip: "Lưu ý: Trong tam giác vuông, hai góc nhọn phụ nhau (có tổng bằng 90°)."
+                    },
+                    {
+                        name: "Hai tam giác bằng nhau (c.g.c)",
+                        rule: "Nếu hai cạnh và góc xen giữa của tam giác này bằng hai cạnh và góc xen giữa của tam giác kia thì hai tam giác đó bằng nhau.",
+                        example: "Kiểm tra kỹ góc bằng nhau phải nằm đúng vị trí 'xen giữa' hai cạnh tương ứng.",
+                        tip: "Vẽ ký hiệu lên hình trước khi viết lời chứng minh để tránh nhầm đỉnh tương ứng."
+                    }
+                ],
+                quizzes: [
+                    {
+                        q: "Câu 1 (Toán 7): Cho tỉ lệ thức x/8 = 3/4. Giá trị của x là:",
+                        options: ["x = 6", "x = 5", "x = 12", "x = 24"],
+                        correct: 0,
+                        explain: "Áp dụng tính chất tỉ lệ thức: x = (8 × 3) : 4 = 24 : 4 = 6."
+                    },
+                    {
+                        q: "Câu 2 (Toán 7): Cho ∆ABC có góc A = 70°, góc B = 60°. Số đo góc C là:",
+                        options: ["40°", "50°", "60°", "70°"],
+                        correct: 1,
+                        explain: "Theo định lý tổng ba góc trong một tam giác: Góc C = 180° - (70° + 60°) = 50°."
+                    }
+                ]
+            }
+        };
+
+        let currentGrade = 6;
+        let currentQuizIndex = 0;
+
+        function switchDemoGrade(grade) {
+            currentGrade = grade;
+            currentQuizIndex = 0;
+
+            const btn6 = document.getElementById('btn-grade-6');
+            const btn7 = document.getElementById('btn-grade-7');
+
+            if (grade === 6) {
+                btn6.className = "px-6 py-2.5 rounded-xl text-sm font-bold bg-sky-600 text-white shadow transition";
+                btn7.className = "px-6 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:text-slate-900 transition";
+            } else {
+                btn7.className = "px-6 py-2.5 rounded-xl text-sm font-bold bg-sky-600 text-white shadow transition";
+                btn6.className = "px-6 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:text-slate-900 transition";
+            }
+
+            document.getElementById('chat-grade-label').textContent = `Đang chọn: Chương trình Toán Lớp ${grade}`;
+            renderTopicChips();
+            selectTopic(0);
+            renderQuiz();
+        }
+
+        function renderTopicChips() {
+            const topics = demoContent[currentGrade].topics;
+            const container = document.getElementById('topic-chips');
+            container.innerHTML = topics.map((t, idx) => `
+                <button onclick="selectTopic(${idx})" id="topic-btn-${idx}" class="px-3.5 py-2 rounded-xl text-xs font-bold border transition">
+                    ${t.name}
+                </button>
+            `).join('');
+        }
+
+        function selectTopic(idx) {
+            const topics = demoContent[currentGrade].topics;
+            topics.forEach((_, i) => {
+                const btn = document.getElementById(`topic-btn-${i}`);
+                if (i === idx) {
+                    btn.className = "px-3.5 py-2 rounded-xl text-xs font-bold bg-teal-600 text-white border-teal-600 shadow-sm transition";
+                } else {
+                    btn.className = "px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200 transition";
+                }
+            });
+
+            const item = topics[idx];
+            document.getElementById('ai-explanation-box').innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2 text-teal-700 font-bold text-sm">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>${item.name}</span>
+                    </div>
+                    <p class="text-sm text-slate-700 leading-relaxed"><strong>Kiến thức cốt lõi:</strong> ${item.rule}</p>
+                    <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs text-slate-800 font-medium">
+                        <i class="fa-solid fa-calculator text-sky-600 mr-1.5"></i> ${item.example}
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-200/80 text-xs text-sky-700 font-semibold">
+                    <i class="fa-solid fa-star text-amber-500 mr-1"></i> ${item.tip}
+                </div>
+            `;
+        }
+
+        function renderQuiz() {
+            const quizzes = demoContent[currentGrade].quizzes;
+            const quiz = quizzes[currentQuizIndex];
+
+            document.getElementById('quiz-progress').textContent = `Câu ${currentQuizIndex + 1}/${quizzes.length}`;
+            document.getElementById('quiz-question').textContent = quiz.q;
+            document.getElementById('quiz-feedback').classList.add('hidden');
+
+            const optionsEl = document.getElementById('quiz-options');
+            optionsEl.innerHTML = quiz.options.map((opt, idx) => `
+                <button onclick="checkQuizAnswer(${idx})" id="quiz-opt-${idx}"
+                    class="w-full text-left px-4 py-3 rounded-2xl border border-slate-200 hover:border-sky-500 bg-slate-50/70 hover:bg-sky-50/50 text-sm font-semibold text-slate-800 transition flex items-center justify-between">
+                    <span>${String.fromCharCode(65 + idx)}. ${opt}</span>
+                    <i class="fa-regular fa-circle text-slate-400"></i>
+                </button>
+            `).join('');
+        }
+
+        function checkQuizAnswer(selectedIdx) {
+            const quiz = demoContent[currentGrade].quizzes[currentQuizIndex];
+            const feedbackEl = document.getElementById('quiz-feedback');
+
+            quiz.options.forEach((_, idx) => {
+                const btn = document.getElementById(`quiz-opt-${idx}`);
+                if (idx === quiz.correct) {
+                    btn.className = "w-full text-left px-4 py-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-sm font-bold text-emerald-900 flex items-center justify-between";
+                    btn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-600";
+                } else if (idx === selectedIdx) {
+                    btn.className = "w-full text-left px-4 py-3 rounded-2xl border-2 border-rose-400 bg-rose-50 text-sm font-semibold text-rose-900 flex items-center justify-between";
+                    btn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-500";
+                }
+            });
+
+            const isCorrect = selectedIdx === quiz.correct;
+            feedbackEl.classList.remove('hidden');
+            feedbackEl.className = isCorrect
+                ? "rounded-2xl p-4 text-xs sm:text-sm mb-4 bg-emerald-50 border border-emerald-200 text-emerald-900"
+                : "rounded-2xl p-4 text-xs sm:text-sm mb-4 bg-amber-50 border border-amber-200 text-amber-900";
+
+            feedbackEl.innerHTML = `
+                <div class="font-bold mb-1">
+                    ${isCorrect ? '🎉 Chính xác! Em nắm bài rất vững.' : '💡 Chưa chính xác, cùng xem hướng dẫn của Thầy Em nhé:'}
+                </div>
+                <div>${quiz.explain}</div>
+            `;
+        }
+
+        function nextQuizQuestion() {
+            const quizzes = demoContent[currentGrade].quizzes;
+            currentQuizIndex = (currentQuizIndex + 1) % quizzes.length;
+            renderQuiz();
+        }
+
+        // 6. Contact Form Submission
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('sender-name').value.trim();
+            const role = document.getElementById('sender-role').value;
+            showToast(`Cảm ơn ${role} ${name}! Lời nhắn đã được gửi đến Thầy Lý Hoàng Em.`);
+            this.reset();
+        });
+
+        // Initialize Page
+        window.onload = function () {
+            renderResources();
+            switchDemoGrade(6);
+        };
+    </script>
+</body>
+</html>
